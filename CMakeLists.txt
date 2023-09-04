@@ -40,6 +40,10 @@ if(POLICY CMP0025)
   cmake_policy(SET CMP0025 NEW)
 endif()
 
+if(POLICY CMP0135)
+  cmake_policy(SET CMP0135 NEW)
+endif()
+
 include(CTest)
 
 configure_file(CTestCustom.cmake.in CTestCustom.cmake @ONLY)
