@@ -43,6 +43,7 @@
 #include <vector>
 #include <map>
 #include <memory>
+#include <cassert>
 #include <Eigen/Dense>
 #include <Eigen/StdVector>
 #include "fcl/export.h"
