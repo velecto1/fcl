@@ -174,46 +174,63 @@ const Transform3<S>& CollisionObject<S>::getTransform() const
 
 //==============================================================================
 template <typename S>
-void CollisionObject<S>::setRotation(const Matrix3<S>& R)
-{
+void CollisionObject<S>::setRotation(const Matrix3<S>& R, bool recomputeAABB) {
   t.linear() = R;
+  if (recomputeAABB) {
+    computeAABB();
+  }
 }
 
 //==============================================================================
 template <typename S>
-void CollisionObject<S>::setTranslation(const Vector3<S>& T)
-{
+void CollisionObject<S>::setTranslation(const Vector3<S>& T,
+                                        bool recomputeAABB) {
   t.translation() = T;
+  if (recomputeAABB) {
+    computeAABB();
+  }
 }
 
 //==============================================================================
 template <typename S>
-void CollisionObject<S>::setQuatRotation(const Quaternion<S>& q)
-{
+void CollisionObject<S>::setQuatRotation(const Quaternion<S>& q,
+                                         bool recomputeAABB) {
   t.linear() = q.toRotationMatrix();
+  if (recomputeAABB) {
+    computeAABB();
+  }
 }
 
 //==============================================================================
 template <typename S>
-void CollisionObject<S>::setTransform(const Matrix3<S>& R, const Vector3<S>& T)
-{
+void CollisionObject<S>::setTransform(const Matrix3<S>& R, const Vector3<S>& T,
+                                      bool recomputeAABB) {
   setRotation(R);
   setTranslation(T);
+  if (recomputeAABB) {
+    computeAABB();
+  }
 }
 
 //==============================================================================
 template <typename S>
-void CollisionObject<S>::setTransform(const Quaternion<S>& q, const Vector3<S>& T)
-{
+void CollisionObject<S>::setTransform(const Quaternion<S>& q,
+                                      const Vector3<S>& T, bool recomputeAABB) {
   setQuatRotation(q);
   setTranslation(T);
+  if (recomputeAABB) {
+    computeAABB();
+  }
 }
 
 //==============================================================================
 template <typename S>
-void CollisionObject<S>::setTransform(const Transform3<S>& tf)
-{
+void CollisionObject<S>::setTransform(const Transform3<S>& tf,
+                                      bool recomputeAABB) {
   t = tf;
+  if (recomputeAABB) {
+    computeAABB();
+  }
 }
 
 //==============================================================================

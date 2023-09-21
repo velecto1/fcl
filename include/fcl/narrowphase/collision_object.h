@@ -42,23 +42,20 @@
 
 #include "fcl/geometry/collision_geometry.h"
 
-namespace fcl
-{
+namespace fcl {
 
 /// @brief the object for collision or distance computation, contains the
 /// geometry and the transform information
 template <typename S>
-class FCL_EXPORT CollisionObject
-{
-public:
+class FCL_EXPORT CollisionObject {
+ public:
   CollisionObject(const std::shared_ptr<CollisionGeometry<S>>& cgeom);
 
   CollisionObject(const std::shared_ptr<CollisionGeometry<S>>& cgeom,
                   const Transform3<S>& tf);
 
   CollisionObject(const std::shared_ptr<CollisionGeometry<S>>& cgeom,
-                  const Matrix3<S>& R,
-                  const Vector3<S>& T);
+                  const Matrix3<S>& R, const Vector3<S>& T);
 
   ~CollisionObject();
 
@@ -78,7 +75,7 @@ public:
   void* getUserData() const;
 
   /// @brief set user data in object
-  void setUserData(void *data);
+  void setUserData(void* data);
 
   /// @brief get translation of the object
   const Vector3<S> getTranslation() const;
@@ -93,22 +90,24 @@ public:
   const Transform3<S>& getTransform() const;
 
   /// @brief set object's rotation matrix
-  void setRotation(const Matrix3<S>& R);
+  void setRotation(const Matrix3<S>& R, bool recomputeAABB = false);
 
   /// @brief set object's translation
-  void setTranslation(const Vector3<S>& T);
+  void setTranslation(const Vector3<S>& T, bool recomputeAABB = false);
 
   /// @brief set object's quatenrion rotation
-  void setQuatRotation(const Quaternion<S>& q);
+  void setQuatRotation(const Quaternion<S>& q, bool recomputeAABB = false);
 
   /// @brief set object's transform
-  void setTransform(const Matrix3<S>& R, const Vector3<S>& T);
+  void setTransform(const Matrix3<S>& R, const Vector3<S>& T,
+                    bool recomputeAABB = false);
 
   /// @brief set object's transform
-  void setTransform(const Quaternion<S>& q, const Vector3<S>& T);
+  void setTransform(const Quaternion<S>& q, const Vector3<S>& T,
+                    bool recomputeAABB = false);
 
   /// @brief set object's transform
-  void setTransform(const Transform3<S>& tf);
+  void setTransform(const Transform3<S>& tf, bool recomputeAABB = false);
 
   /// @brief whether the object is in local coordinate
   bool isIdentityTransform() const;
@@ -138,8 +137,7 @@ public:
   /// @brief whether the object is uncertain
   bool isUncertain() const;
 
-protected:
-
+ protected:
   std::shared_ptr<CollisionGeometry<S>> cgeom;
   std::shared_ptr<const CollisionGeometry<S>> cgeom_const;
 
@@ -149,17 +147,16 @@ protected:
   mutable AABB<S> aabb;
 
   /// @brief pointer to user defined data specific to this object
-  void *user_data;
+  void* user_data;
 
-public:
-
+ public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
 using CollisionObjectf = CollisionObject<float>;
 using CollisionObjectd = CollisionObject<double>;
 
-} // namespace fcl
+}  // namespace fcl
 
 #include "fcl/narrowphase/collision_object-inl.h"
 
